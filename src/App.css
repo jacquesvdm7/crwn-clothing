@@ -2,3 +2,9 @@ body {
     font-family: 'open sans condensed';
     padding: 20px 60px ;
 }
+
+/* The links are rendered as anchored tags which are blue, this just changes them bacl to black */
+a {
+    text-decoration: none;
+    color: black;
+}
