@@ -7,9 +7,10 @@ import SignUp from './sign-up.component';
 const Security = () => {
     return (
         <div>
-           <div className='sign-in-and-sign-up'>Sign-in</div>
-           <SignIn></SignIn>
-           <SignUp></SignUp>
+           <div className='sign-in-and-sign-up'>
+               <SignIn></SignIn>
+               <SignUp></SignUp>
+           </div>
         </div>
     )
     

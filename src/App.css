@@ -8,3 +8,10 @@ a {
     text-decoration: none;
     color: black;
 }
+
+/* This is a universal selector
+For every element box sizinf should be border box 
+This is so that all our components use all the avaibale space on the top level element*/
+* {
+    box-sizing: border-box;
+}
