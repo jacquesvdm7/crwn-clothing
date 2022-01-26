@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import ShopPage from './components/shop/shop.component';
 import Header from './components/header/header-component';
 import Security from './components/security/security.component';
-import { auth } from './firebase/firebase-utils';
+import { auth, createUserProfileDocument } from './firebase/firebase-utils';
 
 
 class App extends Component {
@@ -18,11 +18,29 @@ constructor()  {
 
 unSubscribeFromAuth = null;
 
-
+// Because we are calling a asynch process we have to mark it here as well
+//Firstore document reference is used to perform the CRUD methods
+//set, get, update, delete
 componentDidMount() {
-  this.unSubscribeFromAuth = auth.onAuthStateChanged(user => {
-    this.setState({currentUser: user});
-    console.log(user);
+  this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    if (userAuth)
+    {
+      const userRef = await createUserProfileDocument(userAuth);
+      //check if any data changed in the process before
+      userRef.onSnapshot(snapShot => {
+        // const {name, email, createdDate} = snapShot.data();
+        // console.log('name: ', name, 'email:', email,'date created:',createdDate);
+        this.setState ({
+          id: snapShot.id,
+          ...snapShot.data()
+        },
+        () => {console.log(this.state);}
+        )
+        
+      })
+    }
+    this.setState({currentUser: userAuth});
+    
   })
     
 }
