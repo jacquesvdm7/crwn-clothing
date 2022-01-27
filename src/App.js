@@ -4,7 +4,8 @@ import { connect} from 'react-redux';
 
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
-import {Route, Switch} from 'react-router-dom';
+// We added redirect to make sure after login the user can no longer access the logign page
+import {Route, Switch, Redirect} from 'react-router-dom';
 import ShopPage from './components/shop/shop.component';
 import Header from './components/header/header-component';
 import Security from './components/security/security.component';
@@ -57,11 +58,20 @@ render() {
       <Switch>
         <Route exact path='/' component={HomePage}/>
         <Route path='/shop' component={ShopPage}/>
-        <Route path='/signin' component={Security}/>
+        /* We are switching this to exact match as part of the process to ensure users can only signin once *
+        we will redirect to root in current User have a value else with will render the sign in and sign up page/
+        <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to="/"/>) : (<Security/>)}/>
       </Switch>
     </div>
   )};
   }
+
+  // We want o destruct the user state from props to get the currentUser value, we will then pass the value to the first paramter of connect
+  const mapStateToProps = ({user}) => (
+    {
+        currentUser: user.currentUser
+    }
+  )
 
   //This is how set properties on the reducer
 const mapDispatchToProps = dispatch => (
@@ -70,4 +80,4 @@ const mapDispatchToProps = dispatch => (
   }
 )
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
