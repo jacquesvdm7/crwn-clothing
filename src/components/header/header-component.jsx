@@ -1,4 +1,7 @@
 import React from 'react';
+//We import this to connect to our reducers
+import { connect} from 'react-redux';
+
 import { Link } from 'react-router-dom';
 //This is special syntax in React for importing SVG.
 import { ReactComponent as Logo } from '../../assets/crown.svg';
@@ -35,4 +38,12 @@ const Header = ({currentUser}) => {
 
 };
 
-export default Header;
+//This is how we extract properties from our reducers
+const mapStateToProps = state => (
+   {
+      currentUser: state.user.currentUser
+   }
+)
+
+// We have to now include connect as a higher order compoent
+export default connect(mapStateToProps)(Header);
