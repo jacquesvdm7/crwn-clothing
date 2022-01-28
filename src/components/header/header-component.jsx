@@ -10,8 +10,14 @@ import { auth } from '../../firebase/firebase-utils';
 
 import './header.styles.scss';
 
+import CartIcon from '../cart-icon/cart-icon.component';
+
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+
+
+
 // We destruct the currentUser property that was passed to component
-const Header = ({currentUser}) => {
+const Header = ({currentUser, hideCartDropDown}) => {
     return (
       <div className='header'>   
 
@@ -27,21 +33,30 @@ const Header = ({currentUser}) => {
                CONTACT
             </Link>
             {
+               // Example of conditionally showing component
                currentUser ? 
                <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
                :
                <Link className='option' to='/signin'>SIGN IN</Link>
             }
+            <CartIcon/>
          </div>
+         {
+            hideCartDropDown ? null : <CartDropdown/>
+            
+         }
+         
       </div>
     )
 
 };
 
 //This is how we extract properties from our reducers
-const mapStateToProps = state => (
+//we use an advance method to only destruct currentUser from property user and cart
+const mapStateToProps = ({user: {currentUser}, cart: { hidden}}) => (
    {
-      currentUser: state.user.currentUser
+      currentUser: currentUser,
+      hideCartDropDown: hidden
    }
 )
 

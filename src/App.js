@@ -58,8 +58,8 @@ render() {
       <Switch>
         <Route exact path='/' component={HomePage}/>
         <Route path='/shop' component={ShopPage}/>
-        /* We are switching this to exact match as part of the process to ensure users can only signin once *
-        we will redirect to root in current User have a value else with will render the sign in and sign up page/
+        {/* We are switching this to exact match as part of the process to ensure users can only signin once *
+        we will redirect to root in current User have a value else with will render the sign in and sign up page */}
         <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to="/"/>) : (<Security/>)}/>
       </Switch>
     </div>
