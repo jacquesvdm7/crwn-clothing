@@ -3,7 +3,7 @@ import { addItemToCart } from './cart.utils';
 
 const INITIAL_STATE = {
     hidden: true,
-    cartIems: []
+    cartItems: []
 }
 
 // state = INITIAL_STATE, this is an ES6 function to give state an initial value if its null
@@ -24,7 +24,7 @@ const cartReducer = (state = INITIAL_STATE ,action) => {
                 ...state,
                 //This is how we can add more items to an array
                 //we spread the exisitng values and then add the new one
-                cartIems: addItemToCart(state.cartIems,action.payload)
+                cartItems: addItemToCart(state.cartItems,action.payload)
                 };
         default:
             return state;
