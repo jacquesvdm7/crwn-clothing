@@ -12,6 +12,11 @@ import Security from './components/security/security.component';
 import { auth, createUserProfileDocument } from './firebase/firebase-utils';
 import { setCurrentUser } from './redux/user/user-actions';
 
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from './redux/user/user.selector';
+
+import CheckOutPage from './pages/checkout/checkout.component';
+
 
 class App extends Component {
 unSubscribeFromAuth = null;
@@ -61,15 +66,16 @@ render() {
         {/* We are switching this to exact match as part of the process to ensure users can only signin once *
         we will redirect to root in current User have a value else with will render the sign in and sign up page */}
         <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to="/"/>) : (<Security/>)}/>
+        <Route exact path='/checkout' component={CheckOutPage}/> 
       </Switch>
     </div>
   )};
   }
 
   // We want o destruct the user state from props to get the currentUser value, we will then pass the value to the first paramter of connect
-  const mapStateToProps = ({user}) => (
+  const mapStateToProps = createStructuredSelector (
     {
-        currentUser: user.currentUser
+        currentUser: selectCurrentUser
     }
   )
 

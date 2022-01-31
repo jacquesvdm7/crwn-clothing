@@ -14,6 +14,12 @@ import CartIcon from '../cart-icon/cart-icon.component';
 
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
+import { createStructuredSelector } from 'reselect';
+
+import { selectCurrentUser } from '../../redux/user/user.selector';
+
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+
 
 
 // We destruct the currentUser property that was passed to component
@@ -53,12 +59,22 @@ const Header = ({currentUser, hideCartDropDown}) => {
 
 //This is how we extract properties from our reducers
 //we use an advance method to only destruct currentUser from property user and cart
-const mapStateToProps = ({user: {currentUser}, cart: { hidden}}) => (
+const mapStateToProps =  createStructuredSelector(
+   
    {
-      currentUser: currentUser,
-      hideCartDropDown: hidden
+      currentUser: selectCurrentUser,
+      hideCartDropDown: selectCartHidden
    }
 )
+
+//all this below can be replaced with createStructuredSelector like above and can become eveident if we have allot of variables to set
+// const mapStateToProps = (state) => (
+   
+//    {
+//       currentUser: selectCurrentUser(state),
+//       hideCartDropDown: selectCartHidden(state)
+//    }
+// )
 
 // We have to now include connect as a higher order compoent
 export default connect(mapStateToProps)(Header);
