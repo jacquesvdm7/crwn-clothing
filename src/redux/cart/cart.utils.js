@@ -12,3 +12,30 @@ export const addItemToCart = (cartItems, cartItemsToAdd) => {
 
     return [...cartItems, { ...cartItemsToAdd, quantity: 1}]
 };
+
+//Filter out the id we want to delete
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+    return  cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
+};
+
+export const reduceItemFromCart = (cartItems, cartItemToReduce) => {
+    const existingCartItem = cartItems.find(cartItem => cartItem.id === cartItemToReduce.id);
+
+    if (existingCartItem)
+    {
+        if (existingCartItem.quantity === 1)
+        {
+                return removeItemFromCart(cartItems, cartItemToReduce);
+        }
+        else
+        {
+            return cartItems.map(cartItem =>
+                cartItem.id === cartItemToReduce.id ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                :  cartItem 
+                );
+        }
+    }
+
+    
+    
+};
