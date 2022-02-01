@@ -5,13 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter} from 'react-router-dom'
 import { Provider } from 'react-redux';
-import store from './redux/store';
+// We include PersistGate as part of the procss top persist state to browser storage
+//We also wrap our app in PersisteGate like seen below, wewill specify one paramtr and that is the persistor we wrote into our redux store component
+import { PersistGate } from 'redux-persist/integration/react';
+import {store, persistor} from './redux/store';
 
 ReactDOM.render(
   // We add the store to our provider here
   <Provider store={store}>
   <BrowserRouter>
-    <App />
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
   </BrowserRouter>
   </Provider>,
   document.getElementById('root')
