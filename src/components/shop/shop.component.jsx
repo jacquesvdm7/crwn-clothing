@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
-import SHOP_DATA from './shop.data.jsx';
-import PreviewCollections from '../preview-collection/preview-collection.jsx';
+import React  from 'react';
+import { Route } from 'react-router-dom';
+import CollectionPage from '../../pages/collection/collection.component';
+import CollectionsOverview from '../collections-overview/collections-overview.component';
 
-class ShopPage extends Component
+//because shop page is already in a Route component from our app.js component we have access to match, location and history
+// This is an example of dynamic routing to different pags using a path parameter
+const ShopPage = ({ match }) => 
 {
-constructor(props) {
-    super(props)
-    this.state = {
-        collections: SHOP_DATA
-    }
-}
+    console.log(match);
 
-render() {
-    const {collections} = this.state;
     return (
-        <div className='shop-page ' >
-            {
-                collections.map(({id, ...otherProps}) => (
-                   <PreviewCollections key={id} {...otherProps}/>
-                ))
-            }
+        <div className='shop-page'>
+            <Route exact path={`${match.path}`} component={CollectionsOverview}/>
+            <Route path={`${match.path}/:collectionId`} component={CollectionPage}/>
         </div>
     )
 }
 
-}
+
 export default ShopPage;
