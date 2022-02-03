@@ -2,13 +2,10 @@ import React from 'react';
 //We import this to connect to our reducers
 import { connect} from 'react-redux';
 
-import { Link } from 'react-router-dom';
 //This is special syntax in React for importing SVG.
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
 import { auth } from '../../firebase/firebase-utils';
-
-import './header.styles.scss';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 
@@ -20,39 +17,46 @@ import { selectCurrentUser } from '../../redux/user/user.selector';
 
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
+import { 
+   HeaderContainer, 
+   HeaderOptionsContainer,
+   HeaderOptionLinkContainer,
+   HeaderOptionDivContainer,
+   HeaderLogoContainer } 
+   from './header.styles';
+
 
 
 // We destruct the currentUser property that was passed to component
 const Header = ({currentUser, hideCartDropDown}) => {
     return (
-      <div className='header'>   
-
-         {/* Link to home */}
-         <Link className='logo-container' to='/'>
+      <HeaderContainer>   
+{/* Link to home */}
+         <HeaderLogoContainer to='/'>
             <Logo className='logo'/>
-         </Link>
-         <div className='options'>
-            <Link className='option' to='/shop'>
+         </HeaderLogoContainer>
+         <HeaderOptionsContainer >
+            <HeaderOptionLinkContainer  to='/shop'>
                SHOP
-            </Link>
-            <Link className='option' to='/contact'>
+            </HeaderOptionLinkContainer>
+            <HeaderOptionLinkContainer  to='/contact'>
                CONTACT
-            </Link>
+            </HeaderOptionLinkContainer>
             {
                // Example of conditionally showing component
                currentUser ? 
-               <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
+               <HeaderOptionDivContainer  onClick={() => auth.signOut()}>SIGN OUT</HeaderOptionDivContainer>
                :
-               <Link className='option' to='/signin'>SIGN IN</Link>
+               <HeaderOptionLinkContainer  to='/signin'>SIGN IN</HeaderOptionLinkContainer>
             }
             <CartIcon/>
-         </div>
+         </HeaderOptionsContainer>
          {
             hideCartDropDown ? null : <CartDropdown/>
             
          }
          
-      </div>
+      </HeaderContainer>
     )
 
 };
