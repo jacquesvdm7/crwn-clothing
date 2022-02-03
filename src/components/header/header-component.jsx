@@ -19,9 +19,9 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 
 import { 
    HeaderContainer, 
-   HeaderOptionsContainer,
-   HeaderOptionLinkContainer,
-   HeaderLogoContainer } 
+   OptionsContainer,
+   OptionLinkContainer,
+   LogoContainer } 
    from './header.styles';
 
 
@@ -31,25 +31,25 @@ const Header = ({currentUser, hideCartDropDown}) => {
     return (
       <HeaderContainer>   
 {/* Link to home */}
-         <HeaderLogoContainer to='/'>
+         <LogoContainer to='/'>
             <Logo className='logo'/>
-         </HeaderLogoContainer>
-         <HeaderOptionsContainer >
-            <HeaderOptionLinkContainer  to='/shop'>
+         </LogoContainer>
+         <OptionsContainer >
+            <OptionLinkContainer  to='/shop'>
                SHOP
-            </HeaderOptionLinkContainer>
-            <HeaderOptionLinkContainer  to='/contact'>
+            </OptionLinkContainer>
+            <OptionLinkContainer  to='/contact'>
                CONTACT
-            </HeaderOptionLinkContainer>
+            </OptionLinkContainer>
             {
                // Example of conditionally showing component
                currentUser ? 
-               <HeaderOptionLinkContainer  as='dev' onClick={() => auth.signOut()}>SIGN OUT</HeaderOptionLinkContainer>
+               <OptionLinkContainer  as='dev' onClick={() => auth.signOut()}>SIGN OUT</OptionLinkContainer>
                :
-               <HeaderOptionLinkContainer  to='/signin'>SIGN IN</HeaderOptionLinkContainer>
+               <OptionLinkContainer  to='/signin'>SIGN IN</OptionLinkContainer>
             }
             <CartIcon/>
-         </HeaderOptionsContainer>
+         </OptionsContainer>
          {
             hideCartDropDown ? null : <CartDropdown/>
             

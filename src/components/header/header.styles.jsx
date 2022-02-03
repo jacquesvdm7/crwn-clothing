@@ -10,13 +10,13 @@ export const HeaderContainer = styled.div`
 `;
 
 //This will wrap the Link component in styled component
-export const HeaderLogoContainer = styled(Link)`
+export const LogoContainer = styled(Link)`
     height: 100%;
     width: 70px;
     padding: 25px;
 `;
 
-export const HeaderOptionsContainer = styled.div`
+export const OptionsContainer = styled.div`
     width: 50%;
     height: 100%;
     display: flex;
@@ -24,7 +24,7 @@ export const HeaderOptionsContainer = styled.div`
     justify-content: flex-end;
 `;
 
-export const HeaderOptionLinkContainer = styled(Link)`
+export const OptionLinkContainer = styled(Link)`
     padding: 10px 15px;
     cursor: pointer;
 `;
