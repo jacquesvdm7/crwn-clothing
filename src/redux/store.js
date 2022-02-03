@@ -8,7 +8,13 @@ import rootReducer from './root-reducer';
 
 //we putting the Redux loggers into array middlewares
 //for now we only have logger in our middleware array bit we can add more
-const middlewares = [logger];
+const middlewares = [];
+
+
+//We will set the logger only for development environment
+if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger);
+}
 
 export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
