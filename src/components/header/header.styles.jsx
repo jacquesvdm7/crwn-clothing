@@ -1,11 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
-// We are going to use this styling for our Link and div tag so we need to reuse it like this using styled-components css library
-const OptionContainerStyles = css`
-    padding: 10px 15px;
-    cursor: pointer;
-`
 
 export const HeaderContainer = styled.div`
     height: 70px;
@@ -31,9 +25,7 @@ export const HeaderOptionsContainer = styled.div`
 `;
 
 export const HeaderOptionLinkContainer = styled(Link)`
-    ${OptionContainerStyles}
+    padding: 10px 15px;
+    cursor: pointer;
 `;
 
-export const HeaderOptionDivContainer = styled.div`
-    ${OptionContainerStyles}
-`;

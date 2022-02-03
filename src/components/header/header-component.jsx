@@ -21,7 +21,6 @@ import {
    HeaderContainer, 
    HeaderOptionsContainer,
    HeaderOptionLinkContainer,
-   HeaderOptionDivContainer,
    HeaderLogoContainer } 
    from './header.styles';
 
@@ -45,7 +44,7 @@ const Header = ({currentUser, hideCartDropDown}) => {
             {
                // Example of conditionally showing component
                currentUser ? 
-               <HeaderOptionDivContainer  onClick={() => auth.signOut()}>SIGN OUT</HeaderOptionDivContainer>
+               <HeaderOptionLinkContainer  as='dev' onClick={() => auth.signOut()}>SIGN OUT</HeaderOptionLinkContainer>
                :
                <HeaderOptionLinkContainer  to='/signin'>SIGN IN</HeaderOptionLinkContainer>
             }
