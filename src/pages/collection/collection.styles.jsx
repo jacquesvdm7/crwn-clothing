@@ -1,5 +1,7 @@
-.collection-page {
-    display: flex;
+import styled from "styled-components";
+
+export const CollectionPageContainer = styled.div`
+display: flex;
     flex-direction: column;
   
     .title {
@@ -16,5 +18,4 @@
         margin-bottom: 30px;
       }
     }
-  }
-  
+`;

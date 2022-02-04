@@ -6,16 +6,21 @@ import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 // We added redirect to make sure after login the user can no longer access the logign page
 import {Route, Switch, Redirect} from 'react-router-dom';
-import ShopPage from './components/shop/shop.component';
+import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header-component';
 import Security from './components/security/security.component';
 import { auth, createUserProfileDocument } from './firebase/firebase-utils';
+//we added this temporarily to loaD SHOP DATA
+// import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase-utils';
 import { setCurrentUser } from './redux/user/user-actions';
 
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from './redux/user/user.selector';
 
 import CheckOutPage from './pages/checkout/checkout.component';
+
+//we added this temporarily to loaD SHOP DATA
+// import {selectCollectionsForPreview }  from './redux/shop/shop.selector';
 
 
 class App extends Component {
@@ -26,6 +31,8 @@ unSubscribeFromAuth = null;
 //set, get, update, delete
 componentDidMount() {
 
+  //We added collectionsArray to temporarily create data in firebase
+  // const {setCurrentUser, collectionsArray} = this.props;
   const {setCurrentUser} = this.props;
 
   this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
@@ -45,6 +52,9 @@ componentDidMount() {
       })
     }
     setCurrentUser(userAuth);
+    //we wont wan to add all the fields in our shop data collection so we will filter the array
+    //we destrcut the rray to only gt title and items and them return in the function only title and items as below
+    // addCollectionAndDocuments('collections', collectionsArray.map(({title,items}) => ({title,items})));
     
   })
     
@@ -76,6 +86,7 @@ render() {
   const mapStateToProps = createStructuredSelector (
     {
         currentUser: selectCurrentUser
+        // ,collectionsArray: selectCollectionsForPreview
     }
   )
 

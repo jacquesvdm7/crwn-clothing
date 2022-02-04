@@ -17,6 +17,47 @@ const firebaseConfig = {
   measurementId: "G-5LP0YH4LKL"
 };
 
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+
+  const collectionRef = firestore.collection(collectionKey);
+  
+  const batch = firestore.batch();
+
+  //foreach does not return any value
+  objectsToAdd.forEach(obj => {
+    //Give me new blank document with reference 
+    const newDocRef = collectionRef.doc();
+    //set the values
+    batch.set(newDocRef, obj);
+  
+  })
+  //when succesding the resukt will be null value
+  return await batch.commit();
+
+}
+
+export const convertCollectionsSnapshotToMap = (collectionsSnapshot) => {
+  const transformedCollections = collectionsSnapshot.docs.map(docSnapshot => { 
+    
+    const { title, items} = docSnapshot.data();
+    console.log('title: ',title);
+    console.log('items', items);
+    return {routerName: encodeURI(title.toLowerCase()), 
+      id: docSnapshot.id, 
+      title, 
+      items};
+   });
+
+   console.log('transformedCollections: ', transformedCollections);
+
+   //accumulator = {} on start, then we create mnew map with first element title to lower case and then make the data part the collection items
+   return transformedCollections.reduce((accumulator, collection) => {
+     accumulator[collection.title.toLowerCase()] = collection
+     return accumulator;
+    }, {});
+}
+
+
 // This will perform asynchronouse save to the database
 export const createUserProfileDocument =  async (userAuth, additionalData) => {
   // if we do not receive a valid userAuth Object then do not save

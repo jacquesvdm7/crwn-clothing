@@ -1,16 +1,16 @@
 import React from 'react';
 
-import './security.styles.scss';
+import { SignInAndSignUpContainer } from './security.styles';
 import SignIn from './sign-in.component';
 import SignUp from './sign-up.component';
 
 const Security = () => {
     return (
         <div>
-           <div className='sign-in-and-sign-up'>
+           <SignInAndSignUpContainer>
                <SignIn></SignIn>
                <SignUp></SignUp>
-           </div>
+           </SignInAndSignUpContainer>
         </div>
     )
     

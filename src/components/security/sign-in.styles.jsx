@@ -1,6 +1,8 @@
-.sign-in {
-    // 30% of View Width (vw)
-    width: 380px;   
+import styled from "styled-components";
+
+export const SignInContainer = styled.div`
+ // 30% of View Width (vw)
+ width: 380px;   
     display: flex;
     // all elements on page will be positioned vertically
     flex-direction: column;
@@ -16,4 +18,4 @@
         justify-content: space-between;
 
     }
-}
+`;
