@@ -21,7 +21,9 @@ export const selectCollections = createSelector(
 export const selectCollectionsForPreview = createSelector(
     [selectCollections], 
     //We need to get all the keys of the hashtable first and then take the result and use map to get every key lement and the get the collections at that key value
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => collections ? 
+    Object.keys(collections).map(key => collections[key]) 
+    : []
 )
 
 // find collection.id from matching url paramter of our collction map defined as COLLECTION_ID_MAP
@@ -34,6 +36,6 @@ createSelector(
     // When this array gets very big it will call the function on every element to compare which can become very time consuming with big arrays
     // We need to nomrlaise the data, we will change our shop.data.js to an object instead of an array, we replace the array find as comment out below
     // collections => collections.find(collection => collection.id === COLLECTION_ID_MAP[collectionUrlParam])
-    collections => collections[collectionUrlParam]
+    collections => collections ? collections[collectionUrlParam] : null
 
-)
+);
