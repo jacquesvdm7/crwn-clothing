@@ -1,0 +1,39 @@
+on:
+  workflow_dispatch:
+    inputs:
+      changesInThisRelease:
+        description: "Changes in this Release"
+        default: "Various changes"
+        required: true
+      draftRelease:
+        description: "Draft Release"
+        default: "false"
+        required: true
+      preRelease:
+        description: "Pre-Release"
+        default: "false"
+        required: true
+  push:
+    tags: "v*"
+
+name: Create PROD Release
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ${{ env.changesInThisRelease }}
+          draft: ${{ env.draftRelease }}
+          prerelease: ${{ env.preRelease }}
